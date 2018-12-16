@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" [routerLink]="['/']">YUZU</a>
+  <button class="navbar-toggler tog" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor02">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a class="nav-link" [routerLink]="['/']">Home</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a class="nav-link" [routerLink]="['/user/login']">Login</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a class="nav-link" [routerLink]="['/user/register']">Register</a>
+      </li>
+      <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+        <a class="nav-link" [routerLink]="['/user/profile']">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" (click)="onClickLogout()">Logout</a>
+      </li>
+    </ul>
+    <!--Search Form -->
+    <form class="form-inline my-2 my-lg-0" (submit)="onSubmitSearch($event)">
+      <input class="form-control mr-sm-2" type="text" [(ngModel)]="query" id="query" name="query" (keyup)="onSearchPartial($event)"
+        placeholder="Search">
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <!--Search Form -->
+  </div>
+</nav>
+
+
+<!--Product Search -->
+<ul class="list-group search-list" *ngIf="query?.length > 0">
+  <ng-template [ngIf]="items?.length > 0" [ngIfElse]="noItem">
+    <li class="list-group-item item-search" *ngFor="let item of items">
+      <a href="/product/{{item._id}}">
+        <h4>{{item.name}}</h4>
+      </a>
+    </li>
+  </ng-template>
+
+  <ng-template #noItem>
+    <li class="list-group-item item-search">There is item of this type or Name. Please Search Something else.</li>
+  </ng-template>
+</ul>
+<!--Product Search -->
